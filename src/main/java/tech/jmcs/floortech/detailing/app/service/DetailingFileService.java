@@ -50,7 +50,7 @@ import static tech.jmcs.floortech.detailing.domain.model.fileset.FileSetFacade.*
 @Service
 @Validated
 public class DetailingFileService {
-    final static Logger log = LoggerFactory.getLogger(DetailingFileService.class);
+    static final Logger log = LoggerFactory.getLogger(DetailingFileService.class);
     private static final long MAX_CONTENT_LENGTH = 100*1000*1000;
     final DetailingClaimRepository detailingClaimRepository;
     final FileStorageService fileStorage;

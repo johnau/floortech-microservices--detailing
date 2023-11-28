@@ -21,7 +21,7 @@ import java.util.Date;
 
 @Component
 public class DetailingFileSetHandlers {
-    final static Logger log = LoggerFactory.getLogger(DetailingFileSetHandlers.class);
+    static final Logger log = LoggerFactory.getLogger(DetailingFileSetHandlers.class);
     final DetailingFileService detailingFileService;
 
     public DetailingFileSetHandlers(DetailingFileService detailingFileService) {

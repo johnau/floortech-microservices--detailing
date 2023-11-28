@@ -28,14 +28,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static tech.jmcs.floortech.detailing.domain.configs.DetailingStatus.STARTED;
 import static tech.jmcs.floortech.detailing.domain.model.detailingclaim.DetailingClaim.newUnverifiedClaim;
 import static tech.jmcs.floortech.detailing.domain.model.detailingclaim.DetailingClaimFacade.*;
 
 @Service
 @Validated
 public class DetailingClaimService {
-    final static Logger logger = LoggerFactory.getLogger(DetailingFileService.class);
+    static final Logger log = LoggerFactory.getLogger(DetailingFileService.class);
     final DetailingClaimRepository detailingClaimRepository;
     final Converter<byte[], FloortechJobDto> floortechJobDtoConverter;
     final Converter<byte[], AppUserDto> appUserDtoConverter;
@@ -74,7 +73,7 @@ public class DetailingClaimService {
                     else sink.error(DetailingClaimServiceException.jobAlreadyClaimed("Other user"));
                 })
                 .handle(DetailingClaimService::switchExisting) // if already claimed, exit, else try to verify unverified
-                .switchIfEmpty(detailingClaimRepository.save(newUnverifiedClaim(jobId, currentUser))).doOnNext(detailingClaim -> logger.info("Processing unverified claim for: {} - {}", toJobId.apply(detailingClaim), toClaimedByStaffUsername.apply(detailingClaim)))
+                .switchIfEmpty(detailingClaimRepository.save(newUnverifiedClaim(jobId, currentUser))).doOnNext(detailingClaim -> log.info("Processing unverified claim for: {} - {}", toJobId.apply(detailingClaim), toClaimedByStaffUsername.apply(detailingClaim)))
                 .flatMap(floortechJobDataService::requestDataAndUpdate) // will throw an error if it can't contact - ending the stream
                 .handle(DetailingClaimService::verifyAndStartOrError)
                 .flatMap(detailingClaimRepository::save).log()
@@ -152,7 +151,7 @@ public class DetailingClaimService {
                 .<DetailingClaim>handle(DetailingClaimService::verifyAndCancelOrError) // update the job status to cancelled
                 .log()
                 .flatMap(detailingClaimRepository::save)
-                        .doOnError(error -> logger.info("Unable to save: " + error.getMessage()))
+                        .doOnError(error -> log.info("Unable to save: " + error.getMessage()))
                 .map(detailingClaimDtoMapper::toGetDto);
     }
 

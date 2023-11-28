@@ -13,7 +13,7 @@ import static tech.jmcs.floortech.detailing.domain.model.files.DetailingFileFaca
 
 @Service
 public class DetailingDataFileProcessorFactory {
-    final static Logger log = LoggerFactory.getLogger(DetailingDataFileProcessorFactory.class);
+    static final Logger log = LoggerFactory.getLogger(DetailingDataFileProcessorFactory.class);
 
     public DetailingDataFileProcessorFactory() {
     }

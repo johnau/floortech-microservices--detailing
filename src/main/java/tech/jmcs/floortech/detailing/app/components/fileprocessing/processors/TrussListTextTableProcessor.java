@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TrussListTextTableProcessor implements TableProcessor {
-    final static Logger logger = LoggerFactory.getLogger(TrussListTextTableProcessor.class);
+    static final Logger log = LoggerFactory.getLogger(TrussListTextTableProcessor.class);
     static final String ID = "id";
     static final String QTY = "qty";
     static final String LEN = "len";
@@ -54,14 +54,14 @@ public class TrussListTextTableProcessor implements TableProcessor {
         }
 
         if (!titleMatch) {
-            logger.info("A text file with title: '{}' was checked against Truss Listing template and failed (title mismatch)");
+            log.info("A text file with title: '{}' was checked against Truss Listing template and failed (title mismatch)");
             return false;
         }
 
         List<String> expectedColumns = Arrays.asList(ArchiCadTrussListingTextFile.getColumnArray());
         expectedColumns = expectedColumns.stream().map(m -> m.toLowerCase()).collect(Collectors.toList());
         if (columns.length < expectedColumns.size()) {
-            logger.info("A text file with title: '{}' was checked against Truss Listing template and failed (column count different)");
+            log.info("A text file with title: '{}' was checked against Truss Listing template and failed (column count different)");
             return false;
         }
         boolean allColumnsPresent = checkColumns(preparedColumns, expectedColumns);
@@ -142,7 +142,7 @@ public class TrussListTextTableProcessor implements TableProcessor {
                 processRow(rowData, cleanColumns, valuesMap, columnIndexMap);
                 System.out.println("Values map for this row: " + valuesMap.size());
             } catch (InvalidRowException e) {
-                logger.warn("Encountered an invalid row in the table data: {}", Arrays.toString(rowData));
+                log.warn("Encountered an invalid row in the table data: {}", Arrays.toString(rowData));
             }
 
             var extractedDataRow = ExtractedDataRow.builder()

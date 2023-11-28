@@ -17,7 +17,7 @@ import java.nio.file.Path;
 
 @Service
 public class ZipFileStorageServiceImpl implements ZipFileStorageService {
-    final static Logger log = LoggerFactory.getLogger(ZipFileStorageServiceImpl.class);
+    static final Logger log = LoggerFactory.getLogger(ZipFileStorageServiceImpl.class);
     final FileStorageService fileStorage;
 
     @Autowired

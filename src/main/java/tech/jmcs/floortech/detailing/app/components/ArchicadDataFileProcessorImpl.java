@@ -19,7 +19,7 @@ import static tech.jmcs.floortech.detailing.domain.model.files.DetailingFileFaca
 
 @Component("archicadDataFileProcessingService")
 public class ArchicadDataFileProcessorImpl implements FileProcessor {
-    final static Logger log = LoggerFactory.getLogger(ArchicadDataFileProcessorImpl.class);
+    static final Logger log = LoggerFactory.getLogger(ArchicadDataFileProcessorImpl.class);
     static final String[] ACCEPTED_TYPES = {"XLS", "XLSX", "TXT"};
     final DetailingDataFileProcessorFactory detailingDataFileProcessorFactory;
     @Autowired

@@ -18,7 +18,7 @@ import static tech.jmcs.floortech.detailing.domain.model.detailingclaim.Detailin
 
 @Component
 public class FloortechJobDataServiceImpl implements FloortechJobDataService {
-    final static Logger log = LoggerFactory.getLogger(FloortechJobDataServiceImpl.class);
+    static final Logger log = LoggerFactory.getLogger(FloortechJobDataServiceImpl.class);
     final RpcMessageSender rpcMessageSender;
     final FloortechJobDtoConverter floortechJobDtoConverter;
     final DtoToEntityMapper<FloortechJobDto, DetailingClaim> floortechJobDtoToDetailingClaimMapper;

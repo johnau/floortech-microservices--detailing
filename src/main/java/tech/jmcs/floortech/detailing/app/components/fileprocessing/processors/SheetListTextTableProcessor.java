@@ -11,12 +11,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SheetListTextTableProcessor implements TableProcessor {
-    final static Logger log = LoggerFactory.getLogger(SheetListTextTableProcessor.class);
+    static final Logger log = LoggerFactory.getLogger(SheetListTextTableProcessor.class);
     static final String ID = "id";
     static final String QTY = "qty";
     static final String LEN = "len";
-    final static Logger logger = LoggerFactory.getLogger(SheetListTextTableProcessor.class);
-
+    
     @Override
     public boolean isRecognized(String title, String[] columns) {
         System.out.println("Checking title in Truss List Procesor: " + title);
@@ -24,7 +23,7 @@ public class SheetListTextTableProcessor implements TableProcessor {
         boolean titleMatch = ArchiCadSheetListingTextFile.getTitle().equalsIgnoreCase(title.trim().replaceAll("\s+", " "));
         // TODO: A looser match to the title, Elastic? Endgrams?
         if (!titleMatch) {
-            logger.info("A text file with title: '{}' was checked against Sheet Listing template and failed (title mismatch)", title);
+            log.info("A text file with title: '{}' was checked against Sheet Listing template and failed (title mismatch)", title);
             return false;
         }
 
@@ -35,12 +34,12 @@ public class SheetListTextTableProcessor implements TableProcessor {
         List<String> expectedColumns = Arrays.asList(ArchiCadSheetListingTextFile.getColumnArray());
         expectedColumns = expectedColumns.stream().map(m -> m.toLowerCase()).collect(Collectors.toList());
         if (preparedColumns.size() < expectedColumns.size()) {
-            logger.info("A text file with title: '{}' was checked against Sheet Listing template and failed (column count different)", title);
+            log.info("A text file with title: '{}' was checked against Sheet Listing template and failed (column count different)", title);
             return false;
         }
         boolean allColumnsPresent = true;
         for (int i = 0; i < columns.length; i++) {
-            logger.info("Checking if {} is in : {}", preparedColumns.get(i), Arrays.toString(expectedColumns.toArray()));
+            log.info("Checking if {} is in : {}", preparedColumns.get(i), Arrays.toString(expectedColumns.toArray()));
             if (!expectedColumns.contains(preparedColumns.get(i).toLowerCase())) {
                 allColumnsPresent = false;
                 break;
@@ -82,7 +81,7 @@ public class SheetListTextTableProcessor implements TableProcessor {
                 processRow(rowData, cleanColumns, valuesMap, columnIndexMap);
                 System.out.println("Values map for this row: " + valuesMap.size());
             } catch (InvalidRowException e) {
-                logger.warn("Encountered an invalid row in the table data: {}", Arrays.toString(rowData));
+                log.warn("Encountered an invalid row in the table data: {}", Arrays.toString(rowData));
             }
 
             var extractedDataRow = ExtractedDataRow.builder()

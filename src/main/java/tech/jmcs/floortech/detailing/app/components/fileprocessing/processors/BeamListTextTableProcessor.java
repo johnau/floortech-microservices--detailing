@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BeamListTextTableProcessor implements TableProcessor {
-    final static Logger log = LoggerFactory.getLogger(BeamListTextTableProcessor.class);
+    static final Logger log = LoggerFactory.getLogger(BeamListTextTableProcessor.class);
     static final String ID = "id";
     static final String QTY = "qty";
     static final String LEN = "len";

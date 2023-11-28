@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @Component
 public class DetailingClaimHandlers {
-    final static Logger log = LoggerFactory.getLogger(DetailingClaimHandlers.class);
+    static final Logger log = LoggerFactory.getLogger(DetailingClaimHandlers.class);
     final DetailingClaimService detailingClaimService;
     @Autowired
     public DetailingClaimHandlers(DetailingClaimService detailingClaimService) {

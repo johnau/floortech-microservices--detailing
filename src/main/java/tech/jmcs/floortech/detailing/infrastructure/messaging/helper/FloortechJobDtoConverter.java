@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Component
 public class FloortechJobDtoConverter implements Converter<byte[], FloortechJobDto> {
-    final static Logger log = LoggerFactory.getLogger(FloortechJobDtoConverter.class);
+    static final Logger log = LoggerFactory.getLogger(FloortechJobDtoConverter.class);
     @Override
     public FloortechJobDto convert(byte[] json) {
         var mapper = new ObjectMapper();

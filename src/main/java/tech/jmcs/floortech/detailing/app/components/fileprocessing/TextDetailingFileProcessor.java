@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import static tech.jmcs.floortech.detailing.domain.model.files.DetailingFileFacade.*;
 
 public class TextDetailingFileProcessor implements DetailingDataFileProcessor {
-    final static Logger log = LoggerFactory.getLogger(TextDetailingFileProcessor.class);
+    static final Logger log = LoggerFactory.getLogger(TextDetailingFileProcessor.class);
     final Path storagePath;
     public TextDetailingFileProcessor(Path storagePath) {
         this.storagePath = storagePath;

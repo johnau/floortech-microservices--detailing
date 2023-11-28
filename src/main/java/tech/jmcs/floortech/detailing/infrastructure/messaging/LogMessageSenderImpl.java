@@ -20,7 +20,7 @@ import java.util.Date;
 @Service
 @PropertySource("classpath:rabbitmq.properties")
 public class LogMessageSenderImpl implements RemoteLoggingService {
-    final static Logger log = LoggerFactory.getLogger(LogMessageSenderImpl.class);
+    static final Logger log = LoggerFactory.getLogger(LogMessageSenderImpl.class);
     final QueuesConfig queuesConfig;
     final Sender sender;
 

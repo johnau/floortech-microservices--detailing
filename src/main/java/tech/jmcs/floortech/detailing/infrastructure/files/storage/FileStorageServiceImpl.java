@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
-    final static Logger log = LoggerFactory.getLogger(FileStorageServiceImpl.class);
+    static final Logger log = LoggerFactory.getLogger(FileStorageServiceImpl.class);
     public static final String DELETED_FOLDER_PREFIX = "_DELETED_";
     public static final String TEMP_FOLDER_PREFIX = "_TEMP_";
     final Environment env;

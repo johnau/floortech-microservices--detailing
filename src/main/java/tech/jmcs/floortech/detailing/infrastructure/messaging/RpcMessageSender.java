@@ -27,7 +27,7 @@ import java.util.Map;
 @Component
 @PropertySource("classpath:rabbitmq.properties")
 public class RpcMessageSender {
-    final static Logger log = LoggerFactory.getLogger(RpcMessageSender.class);
+    static final Logger log = LoggerFactory.getLogger(RpcMessageSender.class);
     final Sender sender;
     final ExchangesConfig exchangesConfig;
     final QueuesConfig queuesConfig;

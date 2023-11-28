@@ -22,7 +22,7 @@ import static tech.jmcs.floortech.detailing.domain.model.detailingclaim.Detailin
 
 @Repository
 public class DetailingClaimRepositoryImpl implements DetailingClaimRepository {
-    final static Logger logger = LoggerFactory.getLogger(DetailingClaimRepositoryImpl.class);
+    static final Logger log = LoggerFactory.getLogger(DetailingClaimRepositoryImpl.class);
     private final DetailingClaimDao detailingClaimDao;
 //    private final FileSetDao fileSetDao;
     @Autowired
@@ -56,14 +56,14 @@ public class DetailingClaimRepositoryImpl implements DetailingClaimRepository {
         var claimedByStaffUsername = toClaimedByStaffUsername.apply(detailingClaim);
         var createdDate = toClaimedAt.apply(detailingClaim);
         if (createdDate == null) { // is a new claim
-            logger.info("Saving a new DetailingClaim entity to database: {}, {}", jobId, claimedByStaffUsername);
+            log.info("Saving a new DetailingClaim entity to database: {}, {}", jobId, claimedByStaffUsername);
             return detailingClaimDao.save(DetailingClaimEntity.fromDomainObject(detailingClaim))
                     .map(DetailingClaimEntity::toDomainObject);
         }
 
-        logger.info("Updating a DetailingClaim entity in database: {}, {}", jobId, claimedByStaffUsername);
+        log.info("Updating a DetailingClaim entity in database: {}, {}", jobId, claimedByStaffUsername);
         return detailingClaimDao.findByCompoundId(jobId, claimedByStaffUsername, createdDate)
-                .doOnNext(dce -> logger.info("Found a job with job id: {} and username: {} and created date: {}", jobId, claimedByStaffUsername, createdDate))
+                .doOnNext(dce -> log.info("Found a job with job id: {} and username: {} and created date: {}", jobId, claimedByStaffUsername, createdDate))
                 .flatMap(existing -> detailingClaimDao.save(existing.updateFrom(detailingClaim)))
                 .log()
                 .map(DetailingClaimEntity::toDomainObject);

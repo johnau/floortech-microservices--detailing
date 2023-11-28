@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Component
 public class AppUserDtoConverter implements Converter<byte[], AppUserDto> {
-    final static Logger log = LoggerFactory.getLogger(AppUserDtoConverter.class);
+    static final Logger log = LoggerFactory.getLogger(AppUserDtoConverter.class);
     @Override
     public AppUserDto convert(byte[] json) {
         if (json == null) return null;
