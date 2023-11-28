@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: ft-detailing-service-v2
+  data:
+    mongodb:
+      database: floortech_detailing
+      host: localhost
+      port: 27017
+      auto-index-creation: true
+  webflux:
+    base-path: /api-v2/ft-detailing/
+
+server:
+  port: ${PORT:9260}
+#  servlet:
+#    context-path: /api/detailing  // cant be used with webflux, web mvc only
+
+files:
+  storage-root: 'D:\temp\ft_uploads\_ft_detailing2'
+  storage-root-linux: '~/ft-files-data/_ft_detailing2'
+
+eureka:
+  client:
+    enabled: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761}/eureka/
