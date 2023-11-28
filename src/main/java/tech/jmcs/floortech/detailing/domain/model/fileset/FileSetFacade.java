@@ -9,6 +9,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Facade/Data accessor - Ensures immutability of domain objects:
+ * - Non-primitive types are cloned/deep-copied
+ */
 public interface FileSetFacade {
     Function<FileSet, String> toFileSetId = fileSet -> fileSet.id;
     Function<FileSet, DetailingClaim> toDetailingClaim = fileSet -> fileSet.jobClaim;

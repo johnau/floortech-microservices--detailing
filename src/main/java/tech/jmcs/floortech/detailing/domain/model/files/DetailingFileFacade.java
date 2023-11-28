@@ -7,11 +7,8 @@ import java.util.Date;
 import java.util.function.Function;
 
 /**
- * Accessor Facade for DetailingClaim, should not be used by Service layer (except *possibly* for id)
- * ID logic changing to composite ID and will use a different method in the DetailingClaim object
- *
- * Facade/ accessor - Responsible for ensuring the immutability of the underlying class DetailingClaim
- * Non-primitive types are cloned/deep-copied
+ * Facade/Data accessor - Ensures immutability of domain objects:
+ * - Non-primitive types are cloned/deep-copied
  */
 public interface DetailingFileFacade {
     Function<DetailingFile, String> toFileId = detailingFile -> detailingFile.id;
