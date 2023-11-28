@@ -18,7 +18,6 @@ import java.util.function.Function;
  * Non-primitive types are cloned/deep-copied
  */
 public interface DetailingClaimFacade {
-//    Function<DetailingClaim, String> toClaimId = dc -> dc.id;
     Function<DetailingClaim, String> toJobId = dc -> dc.jobId;
     Function<DetailingClaim, DetailingStatus> toStatus = dc -> dc.status;
     Function<DetailingClaim, String> toClientName = dc -> dc.jobClientName;

@@ -206,7 +206,6 @@ public class DetailingFileServiceIntegrationTests implements MongoDBTestContaine
         var jobId = "JOB-0000001";
         var existingEntity = createExampleDetailingClaim(jobId, clientName, clientId, currentUser);
         var saved = detailingClaimDao.save(existingEntity).block();
-//        var claimId = saved.getId();
         jobId = saved.getJobId();
         var resultMono = detailingFileService.submitDetailingFilesArchive(currentUser, jobId, Mono.just(mockFilePart), 10000L);
 
@@ -553,7 +552,6 @@ public class DetailingFileServiceIntegrationTests implements MongoDBTestContaine
     }
 
     private void printDetailingClaimInfo(DetailingClaim detailingClaim) {
-//        var id = DetailingClaimFacade.toClaimId.apply(detailingClaim);
         var jobId = DetailingClaimFacade.toJobId.apply(detailingClaim);
         var fileSets = DetailingClaimFacade.toFileSets.apply(detailingClaim);
         var dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -590,12 +588,10 @@ public class DetailingFileServiceIntegrationTests implements MongoDBTestContaine
                 }
 
                 var fileDataId = FileDataFacade.toFileDataId.apply(fileData);
-//                var lines = FileDataUtils.toLines.apply(fileData);
                 var extractedData = FileDataFacade.toExtractedData.apply(fileData);
 
                 System.out.println("File Data ----------");
                 System.out.println("ID: " + fileDataId);
-//                System.out.println("Lines count=" + lines.size());
                 System.out.println("Extracted Data:::");
                 extractedData.forEach((exDataId, rowData) -> {
                     System.out.printf("ID=%s, ROWDATA=%s", exDataId, rowData);

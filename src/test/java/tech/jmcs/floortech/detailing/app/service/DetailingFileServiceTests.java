@@ -222,7 +222,6 @@ public class DetailingFileServiceTests {
         given(filePart.transferTo(any(Path.class))).willReturn(Mono.empty());
 
         Mockito.when(detailingClaimRepository.findActiveClaim(jobId, username)).thenReturn(Mono.just(existingClaim));
-//        Mockito.when(detailingClaimRepository.findById("CLAIM-0001")).thenReturn(Mono.just(existingClaim));
         Mockito.when(fileStorage.saveToRoot(eq(filePart), anyString(), anyString(), anyString())).thenReturn(Mono.error(new FileStorageException("")));
 
         Mono<GetFileSetDto> resultMono = detailingFileService.submitDetailingFilesArchive(username, jobId, Mono.just(filePart), 10000L);
@@ -234,47 +233,5 @@ public class DetailingFileServiceTests {
                 })
                 .verify();
     }
-
-//    @Test
-//    public void mustSubmitDetailingFilesArchiveAndProcess() {
-//        FilePart filePart = Mockito.mock(FilePart.class);
-//        given(filePart.filename()).willReturn("TestFile.zip");
-//        given(filePart.transferTo(any(Path.class))).willReturn(Mono.empty());
-//
-//        var existingClaim = DetailingClaim.builder()
-//                .id("CLAIM-0001")
-//                .floortechJobNumber(21000)
-//                .jobClientName("WA Builders")
-//                .jobClientId("BUILDER-0001")
-//                .claimedByStaffUsername("test_user")
-//                .claimedByStaffId("STAFF-0002")
-//                .build();
-//
-//        var archiveContents = new ZipFileStorage.ArchiveContents();
-//        archiveContents.setAbsoluteArchivePath(Paths.get("D:\\temp\\tests\\ft_uploads\\_ft_detailing2\\a\\b\\c\\file.zip"));
-//        archiveContents.setRelativeArchivePath(Paths.get("a\\b\\c\\file.zip"));
-//        archiveContents.setContainedFileAbsolutePaths(List.of(
-//                Paths.get("D:\\temp\\tests\\ft_uploads\\_ft_detailing2\\a\\b\\c\\file1.txt"),
-//                Paths.get("D:\\temp\\tests\\ft_uploads\\_ft_detailing2\\a\\b\\c\\file2.txt")
-//        ));
-//        archiveContents.setContainedFileRelativePaths(List.of(
-//                Paths.get("a\\b\\c\\file1.txt"),
-//                Paths.get("a\\b\\c\\file2.txt")
-//        ));
-//
-//        Mockito.when(detailingClaimRepository.findById("CLAIM-0001")).thenReturn(Mono.just(existingClaim));
-//        Mockito.when(zipFileStorage.saveArchiveAndExtract(eq(filePart), anyString(), anyString(), anyString())).thenReturn(Mono.just(archiveContents));
-//        Mockito.when(fileStorage.makeRelative(Paths.get("D:\\temp\\tests\\ft_uploads\\_ft_detailing2\\a\\b\\c\\file1.txt"))).thenReturn(Paths.get("a\\b\\c\\file1.txt"));
-//        Mockito.when(fileStorage.makeRelative(Paths.get("D:\\temp\\tests\\ft_uploads\\_ft_detailing2\\a\\b\\c\\file2.txt"))).thenReturn(Paths.get("a\\b\\c\\file2.txt"));
-//
-//        var user = "test_user";
-//        Mono<GetFileSetDto> resultMono = detailingFileService.submitAndProcessDetailingFilesArchive(user, "CLAIM-0001", Mono.just(filePart), 10000L);
-//        StepVerifier.create(resultMono)
-//                .consumeNextWith(dto -> {
-//                    assertEquals(2, dto.files().size());
-//                })
-//                .verifyComplete();
-//    }
-
 
 }

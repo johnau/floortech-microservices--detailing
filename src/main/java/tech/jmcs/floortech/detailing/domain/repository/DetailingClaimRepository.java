@@ -11,13 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface DetailingClaimRepository extends CrudRepository<DetailingClaim, String> {
-//    Mono<DetailingClaim> findAllByUserId(String userId, )
-
     Flux<DetailingClaim> findClaims(String jobId, String username);
     Mono<DetailingClaim> findClaim(String jobId, String username, Date claimedDate);
     Mono<DetailingClaim> findActiveClaim(String jobId, String username);
     Mono<DetailingClaim> findPausedClaim(String jobId, String username);
-//    Mono<DetailingClaim> findClaimByUserAndStatus(String jobId, String username, DetailingStatus status);
 
     Mono<DetailingClaim> findByIdAndActive(String claimId);
     Flux<DetailingClaim> findAll(Pageable paging);

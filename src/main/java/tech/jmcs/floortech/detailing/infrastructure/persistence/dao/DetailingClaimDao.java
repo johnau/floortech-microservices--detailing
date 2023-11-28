@@ -40,10 +40,6 @@ public interface DetailingClaimDao extends ReactiveMongoRepository<DetailingClai
     @Query(value = "{jobId: '?0', claimedByStaffUsername: '?1', status: '?2', deleted: {$nin: [true]}}", fields = "{'deleted': 0}")
     Flux<DetailingClaimEntity> findByCompoundIdAndStatus(String jobId, String username, DetailingStatus status);
 
-//    @Query(value = "{compound_uid: '?0', deleted: {$nin: [true]}}", fields = "{'deleted': 0}")
-//    Mono<DetailingClaimEntity> findByCompositeId(String compositeClaimId);
-
-
     @Query(value = "{jobId: '?0', claimedByStaffUsername: '?1', createdDate: ?2, deleted: {$nin: [true]}}", fields = "{'deleted': 0}")
     Mono<DetailingClaimEntity> findByCompoundId(String jobId, String username, Date createdDate);
 

@@ -141,7 +141,6 @@ public class DetailingFileService {
                                                          @NotNull String claimedByUsername,
                                                          @NotNull Date claimedDate) {
         return detailingClaimRepository.findClaim(jobId, claimedByUsername, claimedDate)
-//                .switchIfEmpty(detailingClaimRepository.findById(claimId))
                 .map(toFileSets::apply)
                 .map(Map::values)
                 .flatMapMany(Flux::fromIterable)
@@ -208,7 +207,7 @@ public class DetailingFileService {
 
     private DetailingClaim addDetailingFilesToDetailingClaimFileSet(String fileSetId, List<DetailingFile> processedDetailingFiles, DetailingClaim detailingClaim) {
         var fileSets = toFileSets.apply(detailingClaim); // get current file sets map from detailing claim
-        fileSets.computeIfPresent(fileSetId, (key, value) -> value.withFiles(processedDetailingFiles)); // only update an existing fileSet? (A file set should not be created here...)
+        fileSets.computeIfPresent(fileSetId, (key, value) -> value.withFiles(processedDetailingFiles)); // only update an existing fileSet (File set should exist)
         return detailingClaim.withFileSets(fileSets);
     }
 
@@ -243,7 +242,8 @@ public class DetailingFileService {
         if (path.isRelative()) {
             return fileStorage.loadFromRoot(path.path());
         } else {
-            return Flux.error(new NotImplementedException("ABS PATH IGNORED")); // no public method in FileStorage to handle loading an absolute path
+            var relativePath = fileStorage.makeRelative(path.toPath());
+            return fileStorage.loadFromRoot(relativePath);
         }
     }
 
@@ -273,7 +273,6 @@ public class DetailingFileService {
         return filePartMono
                 .flatMap(filePart -> {
                     var clientPathPart = toClientIdentifier.apply(detailingClaim); // TODO: Remove this and replace with line below
-//                    var clientPathPart = toClientId.apply(detailingClaim);
                     var jobNumber = toJobNumber.apply(detailingClaim);
                     var jobId = toJobId.apply(detailingClaim);
                     var claimIdPathPart = jobId + "_" + new SimpleDateFormat("dd-MM-yyyy_HH.mm.ss.S").format(new Date());

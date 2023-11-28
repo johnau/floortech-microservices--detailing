@@ -71,10 +71,6 @@ public class FileStorageServiceImpl implements FileStorageService {
         return root;
     }
 
-//    public Path getTemporaryFilesPath() {
-//        return temporaryFilesPath;
-//    }
-
     @Override
     public Path makeRelative(Path path) {
         var isTemp = path.toString().startsWith(temporaryFilesPath.toString());

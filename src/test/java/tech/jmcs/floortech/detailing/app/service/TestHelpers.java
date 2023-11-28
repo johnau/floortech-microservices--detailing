@@ -36,7 +36,6 @@ public class TestHelpers {
     }
 
     static void cleanupFilesFolders(Path rootPath, String clientName, String clientId) {
-//        var rootPath = fileStorage.getRoot();
         System.out.println("Root storage path: " + rootPath);
         var toDelete = Paths.get(rootPath.toString(), StringHelper.stripInvalidPathCharacters(clientName) + "_" + StringHelper.stripInvalidPathCharacters(clientId));
         System.out.println("To delete folder path: " + toDelete);

@@ -23,7 +23,7 @@ import static org.mockito.BDDMockito.given;
 
 @WebFluxTest(FileStorageServiceImpl.class)
 @ExtendWith(SpringExtension.class)
-public class FileStorageTests { //} implements IntegrationTestWithoutEurekaClient {
+public class FileStorageTests {
 
     @Autowired
     private FileStorageService fileStorage;

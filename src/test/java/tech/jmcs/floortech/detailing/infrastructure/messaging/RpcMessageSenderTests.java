@@ -160,7 +160,6 @@ public class RpcMessageSenderTests implements RabbitMqTestContainer, Integration
         };
 
         var messageListener = createMessageListenerContainer(queueName, replyFunction);
-//        var queues = getQueues(messageListener);
 
         Mono<Delivery> result = rpcMessageSender.sendJobInfoRpc(jobUuid, null);
 
@@ -178,6 +177,8 @@ public class RpcMessageSenderTests implements RabbitMqTestContainer, Integration
                     assertEquals(true, new String(delivery.getBody()).equals(""));
                 })
                 .verifyComplete();
+
+        messageListener.shutdown();
 
         System.out.println("-------------------------------------------------------------------");
     }
@@ -248,38 +249,6 @@ public class RpcMessageSenderTests implements RabbitMqTestContainer, Integration
                     message.getMessageProperties()
             );
             replyFunction.apply(rdc);
-//            if (jobsInfoRpcPacket.getJobUuid().equalsIgnoreCase("XXX")) {
-//                var addressDto = AddressDto.builder()
-//                        .line1("Unit 5")
-//                        .line2("Test Street")
-//                        .suburb("Testburb")
-//                        .city("Testville")
-//                        .state("WA")
-//                        .country("Australia")
-//                        .postCode("6969")
-//                        .build();
-//                var jobDto = FloortechJobDto.builder()
-//                        .uuid(jobsInfoRpcPacket.getJobUuid())
-//                        .jobNumber(20100)
-//                        .address(addressDto)
-//                        .build();
-//
-////                rabbitTemplate.convertAndSend(exchange, replyTo, mapper.writeValueAsString(dto));
-//                String dtoJson = null;
-//                try {
-//                    dtoJson = mapper.writeValueAsString(jobDto);
-//                    Message reply = new Message(dtoJson.getBytes(), message.getMessageProperties());
-//                    rabbitTemplate.send(replyTo, reply);
-//                } catch (JsonProcessingException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                System.out.println("Sent response message with FloortechJobDto");
-//            } else if (jobsInfoRpcPacket.getJobUuid().equalsIgnoreCase("YYY")) {
-//                Message reply = new Message("".getBytes(), message.getMessageProperties());
-//                rabbitTemplate.send(replyTo, reply);
-//            }
-
-
         }
     }
 

@@ -8,8 +8,13 @@ import reactor.core.publisher.Mono;
 import tech.jmcs.floortech.detailing.presentation.web.error.ErrorDto;
 
 public interface GlobalRoutingHandler {
-    // Helper method for generic request processing and error handling
-
+    /**
+     * Helper method for generic request processing and error handling
+      * @param action
+     * @param httpStatus
+     * @return
+     * @param <T>
+     */
     static <T> Mono<ServerResponse> doRequest(Mono<T> action, HttpStatus httpStatus) {
         return action
                 .flatMap(result -> ServerResponse

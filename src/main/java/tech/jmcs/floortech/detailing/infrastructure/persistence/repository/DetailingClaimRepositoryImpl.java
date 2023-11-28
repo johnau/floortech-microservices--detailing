@@ -52,7 +52,6 @@ public class DetailingClaimRepositoryImpl implements DetailingClaimRepository {
     @Override
     public Mono<DetailingClaim> save(DetailingClaim detailingClaim) {
         Objects.requireNonNull(detailingClaim);
-//        var id = toClaimId.apply(detailingClaim);
         var jobId = toJobId.apply(detailingClaim);
         var claimedByStaffUsername = toClaimedByStaffUsername.apply(detailingClaim);
         var createdDate = toClaimedAt.apply(detailingClaim);
@@ -63,17 +62,11 @@ public class DetailingClaimRepositoryImpl implements DetailingClaimRepository {
         }
 
         logger.info("Updating a DetailingClaim entity in database: {}, {}", jobId, claimedByStaffUsername);
-//        if (id != null && !id.isEmpty()) {
         return detailingClaimDao.findByCompoundId(jobId, claimedByStaffUsername, createdDate)
                 .doOnNext(dce -> logger.info("Found a job with job id: {} and username: {} and created date: {}", jobId, claimedByStaffUsername, createdDate))
-//                    .switchIfEmpty(detailingClaimDao.findById(id))
                 .flatMap(existing -> detailingClaimDao.save(existing.updateFrom(detailingClaim)))
-//                .switchIfEmpty(detailingClaimDao.save(DetailingClaimEntity.fromDomainObject(detailingClaim)))
                 .log()
                 .map(DetailingClaimEntity::toDomainObject);
-//        }
-//        return detailingClaimDao.save(DetailingClaimEntity.fromDomainObject(detailingClaim))
-//                .map(DetailingClaimEntity::toDomainObject);
     }
 
     @Override
@@ -107,12 +100,6 @@ public class DetailingClaimRepositoryImpl implements DetailingClaimRepository {
                 .singleOrEmpty()
                 .map(DetailingClaimEntity::toDomainObject);
     }
-
-//    @Override
-//    public Mono<DetailingClaim> findClaimByUserAndStatus(String jobId, String username, DetailingStatus status) {
-//        return detailingClaimDao.findByCompoundIdAndStatus(jobId, username, status)
-//                .map(DetailingClaimEntity::toDomainObject);
-//    }
 
     @Override
     public Mono<DetailingClaim> findByIdAndActive(String claimId) {
