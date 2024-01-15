@@ -47,7 +47,6 @@ public class FileStorageServiceImpl implements FileStorageService {
      */
     @PostConstruct
     private void init() {
-        System.out.println("Init running");
         var linuxRoot = env.getProperty("files.storage-root-linux");
         var windowsRoot = env.getProperty("files.storage-root");
         if (SystemUtils.IS_OS_LINUX) {

@@ -15,7 +15,7 @@ public class SheetListTextTableProcessor implements TableProcessor {
     static final String ID = "id";
     static final String QTY = "qty";
     static final String LEN = "len";
-    
+
     @Override
     public boolean isRecognized(String title, String[] columns) {
         System.out.println("Checking title in Truss List Procesor: " + title);

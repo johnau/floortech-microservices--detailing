@@ -10,8 +10,12 @@ import tech.jmcs.floortech.detailing.domain.service.fileprocessing.TableProcesso
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ *
+ */
 public class TrussListTextTableProcessor implements TableProcessor {
     static final Logger log = LoggerFactory.getLogger(TrussListTextTableProcessor.class);
+    // Values read from table
     static final String ID = "id";
     static final String QTY = "qty";
     static final String LEN = "len";
@@ -24,13 +28,12 @@ public class TrussListTextTableProcessor implements TableProcessor {
     static final String PENO_POS = "peno position";
     static final String TRUSS_GRP = "truss group";
 
-
     public TrussListTextTableProcessor() {
     }
 
     @Override
     public boolean isRecognized(String title, String[] columns) {
-        System.out.println("Checking title in Truss List Procesor: " + title);
+        log.info("Truss List Title={}", title);
         List<String> preparedColumns = new ArrayList<>();
         for (String column : columns) {
             preparedColumns.add(column.trim().replaceAll("\s+", " "));
@@ -48,20 +51,20 @@ public class TrussListTextTableProcessor implements TableProcessor {
                 }
             }
         }
-        System.out.printf("Match count for title: %s is %s in Truss Text Processor \n", title, matchCount);
+        log.info("Title={} ({} matches)\n", title, matchCount);
         if (matchCount == expectedTitleParts.length || matchCount == expectedTitleParts.length - 1) {
             titleMatch = true;
         }
 
         if (!titleMatch) {
-            log.info("A text file with title: '{}' was checked against Truss Listing template and failed (title mismatch)");
+            log.info("A text file (title='{}') was checked against Truss Listing template and failed (title mismatch)");
             return false;
         }
 
         List<String> expectedColumns = Arrays.asList(ArchiCadTrussListingTextFile.getColumnArray());
         expectedColumns = expectedColumns.stream().map(m -> m.toLowerCase()).collect(Collectors.toList());
         if (columns.length < expectedColumns.size()) {
-            log.info("A text file with title: '{}' was checked against Truss Listing template and failed (column count different)");
+            log.info("A text file (title='{}') was checked against Truss Listing template and failed (column count different)");
             return false;
         }
         boolean allColumnsPresent = checkColumns(preparedColumns, expectedColumns);
